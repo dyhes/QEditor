@@ -5,16 +5,17 @@
 #include <QTreeWidget>
 #include <QVBoxLayout>
 #include <QLabel>
+#include <QDir>
 
 class Explorer : public QWidget
 {
     Q_OBJECT
 public:
     explicit Explorer(QWidget *parent = nullptr);
-private:
     QTreeWidget *fileTree;
     QVBoxLayout *layout;
     QLabel *header;
+    void addDir(QDir dir);
 private:
     void setupLayout();
 signals:

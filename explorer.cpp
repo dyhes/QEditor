@@ -10,10 +10,14 @@
 Explorer::Explorer(QWidget *parent) : QWidget(parent),header(new QLabel("Explorer")),layout(new QVBoxLayout),fileTree(new QTreeWidget)
 {
     setupLayout();
-//    QStringList a=QStringList();
-//    QTreeWidgetItem *imageItem1 =new QTreeWidgetItem(fileTree,a);
-//    QTreeWidgetItem *imageItem1_1 =new QTreeWidgetItem(imageItem1,QStringList(QString("1#车间")));
-//    imageItem1->addChild(imageItem1_1);
+}
+
+void Explorer::addDir(QDir dir)
+{
+    //    QStringList a=QStringList();
+    //    QTreeWidgetItem *imageItem1 =new QTreeWidgetItem(fileTree,a);
+    //    QTreeWidgetItem *imageItem1_1 =new QTreeWidgetItem(imageItem1,QStringList(QString("1#车间")));
+    //    imageItem1->addChild(imageItem1_1);
 }
 
 void Explorer::setupLayout()

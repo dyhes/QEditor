@@ -11,6 +11,11 @@
 class EMenu : public QMenuBar
 {
     Q_OBJECT
+private:
+    bool is_open ;
+    bool is_new_file ;
+    QString file_name_current;
+    QString file_string_current;
 public:
     explicit EMenu(QWidget *parent = nullptr);
     QMenu *fileMenu;
@@ -34,9 +39,12 @@ public:
     QAction *runAct;
     Editor *editor;
     Explorer *explorer;
+    bool openTextByStream(const QString &aFileName);
+    bool saveTextByStream(const QString &aFileName);
 signals:
 
 public slots:
+
     void on_open_click();
     void on_open_folder_click();
     void on_save_click();
