@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     menubar->editor=editor;
+    menubar->explorer=explorer;
     setupLayout();
 }
 

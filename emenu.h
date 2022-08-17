@@ -6,6 +6,7 @@
 #include <QMenuBar>
 #include <QAction>
 #include "editor.h"
+#include "explorer.h"
 
 class EMenu : public QMenuBar
 {
@@ -18,6 +19,7 @@ public:
     QMenu *helpMenu;
 
     QAction *openAct;
+    QAction *openFolderAct;
     QAction *saveAct;
     QAction *saveAsAct;
     QAction *newFileAct;
@@ -31,10 +33,12 @@ public:
     QAction *compileAct;
     QAction *runAct;
     Editor *editor;
+    Explorer *explorer;
 signals:
 
 public slots:
     void on_open_click();
+    void on_open_folder_click();
     void on_save_click();
     void on_new_file_click();
     void on_save_as_click();
