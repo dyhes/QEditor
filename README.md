@@ -1,1 +1,1 @@
-IDE_UI
+C Editor developed by Qt.
