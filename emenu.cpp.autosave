@@ -44,6 +44,7 @@ void EMenu::on_open_click()
     if(file_path.isEmpty())
         return;
     FILE *p =fopen(file_path.toStdString().data(),"r");
+    
     if(p==NULL)
     {
         QMessageBox::information(this,"notify","open file failure.");

@@ -5,6 +5,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QAction>
+#include "editor.h"
 
 class EMenu : public QMenuBar
 {
@@ -29,6 +30,7 @@ public:
 
     QAction *compileAct;
     QAction *runAct;
+    Editor *editor;
 signals:
 
 public slots:

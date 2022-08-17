@@ -29,14 +29,16 @@ SOURCES += \
     emenu.cpp \
     esidebar.cpp \
     editor.cpp \
-    explorer.cpp
+    explorer.cpp \
+    efilebar.cpp
 
 HEADERS += \
         mainwindow.h \
     emenu.h \
     esidebar.h \
     editor.h \
-    explorer.h
+    explorer.h \
+    efilebar.h
 
 FORMS += \
         mainwindow.ui
