@@ -13,6 +13,5 @@ void Editor::setupLayout()
     layout->setMargin(0);
     layout->setSpacing(0);
     this->setLayout(layout);
-
     efilebar->setFixedHeight(25);
 }

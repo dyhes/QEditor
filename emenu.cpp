@@ -65,7 +65,16 @@ void EMenu::on_open_folder_click()
 {
     QString selectedDir = QFileDialog::getExistingDirectory();
     if(selectedDir.isEmpty())return;
-    explorer->addRootDir(QDir(selectedDir));
+    QDir dir=QDir(selectedDir);
+    explorer->addRootDir(dir);
+    QList<QTreeWidgetItem*> results=explorer->fileTree->findItems(dir.dirName(),Qt::MatchExactly|Qt::MatchRecursive);
+    for(auto &result:results){
+        QString ans=result->data(0,Qt::UserRole).toString();
+        if(ans==selectedDir){
+            result->setSelected(true);
+            break;
+        }
+    }
 //zlq
 //    QString curPath=QDir::currentPath();
 //    QString aFileName=QFileDialog::getOpenFileName(this,"Open a file...",curPath,

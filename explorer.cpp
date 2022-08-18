@@ -3,6 +3,7 @@
 Explorer::Explorer(QWidget *parent) : QWidget(parent),header(new QLabel("Explorer")),layout(new QVBoxLayout),fileTree(new QTreeWidget)
 {
     setupLayout();
+    connect(fileTree,SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),this,SLOT(open_in_editor(QTreeWidgetItem*,int)));
 }
 
 void Explorer::addRootDir(QDir dir)
@@ -18,7 +19,6 @@ void Explorer::addRootDir(QDir dir)
     }
     fileTree->addTopLevelItem(root);
     root->setExpanded(true);
-    myDebug(root->isExpanded());
 }
 
 void Explorer::addNode(QFileInfo &info, QTreeWidgetItem *root)
@@ -56,4 +56,18 @@ void Explorer::setupLayout()
 
     fileTree->setHeaderHidden(true);
     this->setLayout(layout);
+}
+
+void Explorer::open_in_editor(QTreeWidgetItem *item, int column)
+{
+    QString file_path=item->data(0,Qt::UserRole).toString();
+    QFile file{file_path};
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            return;
+    QTextStream in(&file);
+    QString context{""};
+    while(!in.atEnd()){
+        context.append(in.readLine());
+    }
+    editor->edit->setText(context);
 }
