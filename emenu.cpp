@@ -1,9 +1,5 @@
 #include "emenu.h"
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QDebug>
-#include <QFileInfo>
-#include "QTextStream"
+
 
 EMenu::EMenu(QWidget *parent) : QMenuBar(parent),is_open(false),is_new_file(false)
 {
@@ -52,36 +48,33 @@ void EMenu::on_open_click()
 {
     QString file_path=QFileDialog::getOpenFileName(this, tr("Open File"),"C://",tr("C Files(*.c *.h)"));
     if(file_path.isEmpty())return;
-    explorer->addDir(QFileInfo(file_path).dir());
-//    FILE *p =fopen(file_path.toStdString().data(),"r");
-//    if(p==NULL)
-//    {
-//        QMessageBox::information(this,"notify","open file failure.");
-//        return;
-//    }
-//    QString content;
-//    char buf[1024]={0};
-
-//    while(!feof(p)){
-//        content+=  fgets(buf,sizeof(buf),p);
-//    }
-//    fclose(p);
-//    editor->edit->setText(content);
+    QFileInfo info=QFileInfo(file_path);
+    explorer->addRootDir(info.dir());
+    QList<QTreeWidgetItem*> results=explorer->fileTree->findItems(info.fileName(),Qt::MatchExactly|Qt::MatchRecursive);
+    for(auto &result:results){
+        QString ans=result->data(0,Qt::UserRole).toString();
+        if(ans==info.absoluteFilePath()){
+            result->setSelected(true);
+            emit explorer->fileTree->itemDoubleClicked(result,0);
+            break;
+        }
+    }
 }
 
 void EMenu::on_open_folder_click()
 {
-//    QString selectedDir = QFileDialog::getExistingDirectory(QFileDialog::DontUseNativeDialog);
-//    if(selectedDir.isEmpty())return;
-//    explorer->addDir(QDir(selectedDir));
-    QString curPath=QDir::currentPath();
-    QString aFileName=QFileDialog::getOpenFileName(this,"Open a file...",curPath,
-                 "程序文件(*.h *c);;文本文件(*.txt)");
-    if (aFileName.isEmpty())
-        return;
-    openTextByStream(aFileName);
-    this->is_open = true;
-    this->file_name_current = aFileName;
+    QString selectedDir = QFileDialog::getExistingDirectory();
+    if(selectedDir.isEmpty())return;
+    explorer->addRootDir(QDir(selectedDir));
+//zlq
+//    QString curPath=QDir::currentPath();
+//    QString aFileName=QFileDialog::getOpenFileName(this,"Open a file...",curPath,
+//                 "程序文件(*.h *c);;文本文件(*.txt)");
+//    if (aFileName.isEmpty())
+//        return;
+//    openTextByStream(aFileName);
+//    this->is_open = true;
+//    this->file_name_current = aFileName;
 }
 
 void EMenu::on_save_click()
@@ -166,6 +159,7 @@ void EMenu::on_save_as_click()
     this->file_name_current = aFileName;
     this->is_new_file=false;
 }
+
 void EMenu::on_copy_click(){}
 
 void EMenu::on_paste_click(){}

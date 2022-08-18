@@ -2,9 +2,7 @@
 #define EMENU_H
 
 #include <QWidget>
-#include <QMenu>
-#include <QMenuBar>
-#include <QAction>
+#include "helper.h"
 #include "editor.h"
 #include "explorer.h"
 

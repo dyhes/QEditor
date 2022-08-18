@@ -2,12 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QTextEdit>
 #include "emenu.h"
-#include <QGridLayout>
 #include "esidebar.h"
 #include "explorer.h"
 #include "editor.h"
+#include "helper.h"
 
 namespace Ui {
 class MainWindow;

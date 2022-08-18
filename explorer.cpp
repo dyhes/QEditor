@@ -1,23 +1,45 @@
 #include "explorer.h"
-#include <QPushButton>
-#include <QTreeWidgetItem>
-#include <QIcon>
-#include <QString>
-#include <QStringList>
-#include <QDebug>
-#include <QFont>
 
 Explorer::Explorer(QWidget *parent) : QWidget(parent),header(new QLabel("Explorer")),layout(new QVBoxLayout),fileTree(new QTreeWidget)
 {
     setupLayout();
 }
 
-void Explorer::addDir(QDir dir)
+void Explorer::addRootDir(QDir dir)
 {
-    //    QStringList a=QStringList();
-    //    QTreeWidgetItem *imageItem1 =new QTreeWidgetItem(fileTree,a);
-    //    QTreeWidgetItem *imageItem1_1 =new QTreeWidgetItem(imageItem1,QStringList(QString("1#车间")));
-    //    imageItem1->addChild(imageItem1_1);
+    QTreeWidgetItem *root=new QTreeWidgetItem();
+    root->setText(0,dir.dirName());
+    root->setData(0,Qt::UserRole,dir.absolutePath());
+    QFileInfoList children=dir.entryInfoList();
+    for(auto& child:children){
+        QString childname=child.fileName();
+        if(childname=="."||childname=="..")continue;
+        addNode(child,root);
+    }
+    fileTree->addTopLevelItem(root);
+    root->setExpanded(true);
+    myDebug(root->isExpanded());
+}
+
+void Explorer::addNode(QFileInfo &info, QTreeWidgetItem *root)
+{
+    QTreeWidgetItem *child=new QTreeWidgetItem();
+    QString path=info.absoluteFilePath();
+    if(info.isDir()){
+        QDir cur=QDir(path);
+        child->setText(0,cur.dirName());
+        child->setData(0,Qt::UserRole,path);
+        QFileInfoList children=cur.entryInfoList();
+        for(auto& achild:children){
+            QString childname=achild.fileName();
+            if(childname=="."||childname=="..")continue;
+            addNode(achild,child);
+        }
+    }else{
+        child->setText(0,info.fileName());
+        child->setData(0,Qt::UserRole,path);
+    }
+    root->addChild(child);
 }
 
 void Explorer::setupLayout()

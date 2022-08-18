@@ -2,9 +2,8 @@
 #define EDITOR_H
 
 #include <QWidget>
-#include <QVBoxLayout>
+#include "helper.h"
 #include "efilebar.h"
-#include <QTextEdit>
 
 class Editor : public QWidget
 {

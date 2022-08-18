@@ -38,7 +38,8 @@ HEADERS += \
     esidebar.h \
     editor.h \
     explorer.h \
-    efilebar.h
+    efilebar.h \
+    helper.h
 
 FORMS += \
         mainwindow.ui

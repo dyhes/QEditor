@@ -2,11 +2,7 @@
 #define EXPLORER_H
 
 #include <QWidget>
-#include <QTreeWidget>
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QDir>
-
+#include "helper.h"
 class Explorer : public QWidget
 {
     Q_OBJECT
@@ -15,8 +11,9 @@ public:
     QTreeWidget *fileTree;
     QVBoxLayout *layout;
     QLabel *header;
-    void addDir(QDir dir);
+    void addRootDir(QDir dir);
 private:
+    void addNode(QFileInfo &info,QTreeWidgetItem *root);
     void setupLayout();
 signals:
 
